@@ -1,0 +1,10 @@
+name: my_css
+version: 0.0.0
+dependencies:
+  da_process:
+    github: da99/da_process.cr
+  da_dev:
+    github: da99/da_dev
+development_dependencies:
+  da_spec:
+    github: da99/da_spec.cr
