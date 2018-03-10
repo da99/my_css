@@ -10,13 +10,13 @@ Intro
 ```crystal
   require "my_css"
 
-  sass = My_CSS.new("my.sass")
-  scss = My_CSS.new("my.scss")
-  css  = My_CSS.new("my.css")
+  sass = My_CSS::File.new("my.sass")
+  scss = My_CSS::File.new("my.scss")
+  css  = My_CSS::File.new("my.css")
 
-  scss.sass?
-  scss.scss?
-  scss.css?
+  # .sass?
+  # .scss?
+  # .css?
 
   scss.compile!
   css_output = scss.compile!(%w[my arsg as a Array(String)])
