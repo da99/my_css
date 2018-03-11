@@ -33,10 +33,10 @@ describe ".new" do
     assert sass.name == "d"
   end # === it "sets .name"
 
-  it "sets .ext" do
+  it "sets .extname" do
     %w[sass sassc css].each { |e|
       sass = My_CSS::File.new("a/b/c/d.#{e}")
-      assert sass.ext == ".#{e}"
+      assert sass.extname == ".#{e}"
     }
   end # === it "sets .ext"
 end # === desc ".new"

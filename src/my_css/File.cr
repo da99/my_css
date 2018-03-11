@@ -14,12 +14,12 @@ module My_CSS
     getter path : String
     getter dir  : String
     getter name : String
-    getter ext  : String
+    getter extname  : String
 
     def initialize(@path : String)
-      @dir  = ::File.basename(::File.dirname(@path))
-      @ext  = ::File.extname(@path).downcase
-      @name = ::File.basename(@path, ::File.extname(@path))
+      @dir     = ::File.basename(::File.dirname(@path))
+      @extname = ::File.extname(@path).downcase
+      @name    = ::File.basename(@path, ::File.extname(@path))
     end # === def initialize
 
     def compile(outfile : String)
@@ -30,7 +30,7 @@ module My_CSS
       when css? || scss?
         :allowed
       else
-        raise Error.new("!!! {{Unknown file type}}: {{#{path}}} (#{ext})")
+        raise Error.new("!!! {{Unknown file type}}: {{#{path}}} (#{extname})")
       end
       da_process = My_CSS::SASSC.compile args
       if da_process.success?
@@ -42,7 +42,7 @@ module My_CSS
 
     {% for x in %w[scss css sass].map(&.id) %}
       def {{x}}?
-        ext == ".{{x}}"
+        extname == ".{{x}}"
       end
     {% end %}
 
