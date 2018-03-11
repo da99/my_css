@@ -22,6 +22,25 @@ def inspect(x : DA_Process)
   x
 end
 
+describe ".new" do
+  it "sets .dir" do
+    sass = My_CSS::File.new("a/b/c/d.sass")
+    assert sass.dir == "c"
+  end # === it "sets .dir"
+
+  it "sets .name" do
+    sass = My_CSS::File.new("a/b/c/d.sass")
+    assert sass.name == "d"
+  end # === it "sets .name"
+
+  it "sets .ext" do
+    %w[sass sassc css].each { |e|
+      sass = My_CSS::File.new("a/b/c/d.#{e}")
+      assert sass.ext == ".#{e}"
+    }
+  end # === it "sets .ext"
+end # === desc ".new"
+
 describe ".compile" do
   it "returns a DA_Process with :success? == true" do
     css = <<-EOF

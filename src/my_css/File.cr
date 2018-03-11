@@ -34,6 +34,7 @@ module My_CSS
       end
       da_process = My_CSS::SASSC.compile args
       if da_process.success?
+        Dir.mkdir_p(::File.dirname(outfile))
         ::File.write(outfile, da_process.output)
       end
       da_process
