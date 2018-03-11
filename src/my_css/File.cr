@@ -11,18 +11,18 @@ module My_CSS
     # Instance:
     # =============================================================================
 
-    getter path     : String
-    getter route    : String
-    getter name     : String
-    getter ext      : String
+    getter path : String
+    getter dir  : String
+    getter name : String
+    getter ext  : String
 
     def initialize(@path : String)
-      @route    = ::File.basename(::File.dirname(@path))
-      @ext      = ::File.extname(@path).downcase
-      @name     = ::File.basename(@path, ::File.extname(@path))
+      @dir  = ::File.basename(::File.dirname(@path))
+      @ext  = ::File.extname(@path).downcase
+      @name = ::File.basename(@path, ::File.extname(@path))
     end # === def initialize
 
-    def compile
+    def compile(outfile : String)
       args = ["--style", "compact", path]
       case
       when sass?
@@ -32,7 +32,11 @@ module My_CSS
       else
         raise Error.new("!!! {{Unknown file type}}: {{#{path}}} (#{ext})")
       end
-      My_CSS::SASSC.compile args
+      da_process = My_CSS::SASSC.compile args
+      if da_process.success?
+        ::File.write(outfile, da_process.output)
+      end
+      da_process
     end
 
     {% for x in %w[scss css sass].map(&.id) %}
