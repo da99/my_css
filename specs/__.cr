@@ -15,13 +15,23 @@ def fs
   }
 end # === def fs
 
-describe ".compile!" do
-  it "returns CSS output" do
+describe ".compile" do
+  it "returns a DA_Process with CSS output" do
     css = %[p { color: #fff; }]
     fs {
       File.write("a.css", css)
-      actual = My_CSS::File.new("a.css").compile!.to_s
+      actual = My_CSS::File.new("a.css").compile.output.to_s
       assert actual == "#{css}\n"
     }
   end # === it "returns CSS output"
+
+  it "returns a DA_Process with :success? == true" do
+    css = %[p { color: #fff; }]
+    fs {
+      File.write("a.css", css)
+      actual = My_CSS::File.new("a.css").compile.success?
+      assert actual == true
+    }
+  end # === it "returns CSS output"
 end # === desc ".compile!"
+
